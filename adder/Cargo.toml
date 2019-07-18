@@ -1,0 +1,12 @@
+[package]
+name = "adder"
+version = "0.1.0"
+authors = ["Alexey Astafyev <av.astafyev@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "adder"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
