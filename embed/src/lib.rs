@@ -1,16 +1,18 @@
 use std::thread;
 
 #[no_mangle]
-pub extern fn process() {
-    let handles: Vec<_> = (0..10).map(|_| {
-        thread::spawn(|| {
-            let mut count = 0;
-            for _ in 0..10_000_000 {
-                count += 1
-            }
-            count
+pub extern "C" fn process() {
+    let handles: Vec<_> = (0..10)
+        .map(|_| {
+            thread::spawn(|| {
+                let mut count = 0;
+                for _ in 0..10_000_000 {
+                    count += 1
+                }
+                count
+            })
         })
-    }).collect();
+        .collect();
 
     let mut thread_id = 0;
 

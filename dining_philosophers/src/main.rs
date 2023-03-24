@@ -1,6 +1,6 @@
+use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
-use std::sync::{Mutex, Arc};
 
 struct Philosopher {
     name: String,
@@ -41,7 +41,7 @@ fn main() {
             Mutex::new(()),
             Mutex::new(()),
             Mutex::new(()),
-        ]
+        ],
     });
 
     let philosophers = vec![
@@ -52,12 +52,15 @@ fn main() {
         Philosopher::new("Philosopher 5", 0, 4),
     ];
 
-    let handles: Vec<_> = philosophers.into_iter().map(|p| {
-        let table = table.clone();
-        thread::spawn(move || {
-            p.eat(&table);
+    let handles: Vec<_> = philosophers
+        .into_iter()
+        .map(|p| {
+            let table = table.clone();
+            thread::spawn(move || {
+                p.eat(&table);
+            })
         })
-    }).collect();
+        .collect();
 
     for h in handles {
         h.join().unwrap();
